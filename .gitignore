@@ -9,7 +9,7 @@ task-manager/node_modules/
 build/
 dist/
 .env
-
+server/.env
 # testing
 /coverage
 
