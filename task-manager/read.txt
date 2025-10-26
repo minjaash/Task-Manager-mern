@@ -1,0 +1,2 @@
+dthe register component is used to send the user data to server and token is set in browser
+the login component is used to login the user and token is set in local storage and navigated to profile.
