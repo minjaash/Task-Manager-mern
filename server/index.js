@@ -13,7 +13,7 @@ const UserTask = require("./models/tasksModel")
 app.use(cors())
 app.use(express.json())
 
-const Mongo_Uri=process.env.MONGO_URI
+const Mongo_Uri=process.env.MONGODB_URI
 const JWT_Secret_Key=process.env.JWT_SECRET_KEY
 //--------mongo connection string
 
@@ -42,34 +42,30 @@ app.post('/register',(req,res)=>{
    
 })
 //-------------------------login api-------------
-app.post('/login',(req,res)=>{
-    console.log(req.body)
-    mongoose.connect(Mongo_Uri)
-    .then(dbr=>{
-    User.findOne({email:req.body.email})
-        .then(dbres=>{
-                if((bcrypt.compareSync( req.body.password,dbres.password))){
-                    const token=jwt.sign({name_:dbres.name},JWT_Secret_Key)
-                    console.log(dbres)
-                    res.json({token})
-                    
-                }
-                else{
-                    console.log()
-                    res.send("could not find user")
-                }
-   
-          })
-         .catch(err=>{
-            console.log("user does not exist",err)
-            res.send('no user found',err)
+app.post('/login', (req, res) => {
+  mongoose.connect(Mongo_Uri)
+    .then(() => {
+      User.findOne({ email: req.body.email })
+        .then(dbres => {
+          if (dbres && bcrypt.compareSync(req.body.password, dbres.password)) {
+            const token = jwt.sign({ name_: dbres.name }, JWT_Secret_Key);
+            res.json({ token });
+          } else {
+            // ❌ Invalid credentials — send proper error
+            res.status(401).json({ message: "Invalid email or password" });
+          }
+        })
+        .catch(err => {
+          console.log("user does not exist", err);
+          res.status(404).json({ message: "User not found" });
+        });
     })
-})
-.catch(err=>{
-    console.log('could not connect to server',err)
-    res.json({message:"could not connect to server"})
-})
-})
+    .catch(err => {
+      console.log('could not connect to server', err);
+      res.status(500).json({ message: "Server error" });
+    });
+});
+
 
 //--------------------getting user data to show on profile
 
@@ -88,7 +84,7 @@ app.post('/user',(req,res)=>{
    })
    .catch(err=>{
     console.log("login failure",err)
-    res.json({message:'login failure'})
+    res.status(401).json({message:'login failure'})
    })
 })
 

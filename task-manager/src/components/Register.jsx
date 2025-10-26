@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const Register = () => {
+const Register = ({setIsLoggedIn}) => {
     const Uri="http://localhost:4000"
     const[values,setValues]=useState({name:"",email:"",password:""})
     const navigate=useNavigate();
@@ -20,7 +20,7 @@ const Register = () => {
         axios.post(Uri+"/register",values)
         .then(res=>{
            if(!(localStorage.getItem("user"))&&(localStorage.getItem("user")!==res.data.token)){
-            localStorage.setItem("User", res.data.token)
+            localStorage.setItem("user", res.data.token)
             navigate("/profile")
            }
             else{
@@ -28,7 +28,12 @@ const Register = () => {
                 navigate("/profile")
             }
         })
-        .catch(err=>console.log('err in saving',err))
+        .catch(err=>{
+          console.log('err in saving',err);
+           localStorage.removeItem("user");
+        setIsLoggedIn(false);
+        navigate("/")
+        })
 
     }
 

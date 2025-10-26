@@ -15,14 +15,13 @@ function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem('user');
-    // Make sure token is valid and not undefined or empty
-    if (token && token !== "undefined") {
-      setIsLoggedIn(true);
-    } else {
-      setIsLoggedIn(false);
-    }
-  }, []);
+  const token = localStorage.getItem('user');
+  if (token && token !== "undefined") {
+    setIsLoggedIn(true);
+  } else {
+    setIsLoggedIn(false);
+  }
+}, []);
 
 
   return (
@@ -49,7 +48,7 @@ function App() {
         
           
        <Route path='/' element={<Home/>}></Route>
-       <Route path='/register' element={<Register/>}></Route>
+       <Route path='/register' element={<Register setIsLoggedIn={setIsLoggedIn}/>}></Route>
        <Route path='/login' element={<Login setIsLoggedIn={setIsLoggedIn}/>}></Route>
        
        <Route path='/profile' element={<Profile setIsLoggedIn={setIsLoggedIn} />}>

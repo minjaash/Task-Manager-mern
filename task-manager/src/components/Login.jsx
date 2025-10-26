@@ -31,7 +31,12 @@ const Login = ({setIsLoggedIn}) => {
                   navigate("/profile")
               }
           })
-          .catch(err=>console.log('err in login',err))
+          .catch(err=>{
+            console.log('err in login',err)
+             localStorage.removeItem("user");
+              setIsLoggedIn(false);
+              navigate("/");
+          })
   
       }
   return (
