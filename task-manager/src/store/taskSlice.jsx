@@ -1,6 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
-const  Uri=process.env.REACT_APP_API_URL;
 
 const initialStateValues={
     allTasks:[]
