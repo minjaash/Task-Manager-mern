@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
 const Login = ({setIsLoggedIn}) => {
-  const Uri="http://localhost:4000"
+  const Uri=process.env.REACT_APP_API_URL;
       const[values,setValues]=useState({email:"",password:""})
       const navigate=useNavigate();
   

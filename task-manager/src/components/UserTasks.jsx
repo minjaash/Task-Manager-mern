@@ -6,7 +6,7 @@ import { setTasks } from '../store/taskSlice';
 import Delete from './Delete';
 
 const UserTasks = () => {
-  const Uri = 'http://localhost:4000';
+  const Uri = process.env.REACT_APP_API_URL;
   const dispatch = useDispatch();
   const { allTasks } = useSelector(state => state.tasks);
   const { sId } = useParams();

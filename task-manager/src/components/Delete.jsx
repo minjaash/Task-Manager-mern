@@ -6,7 +6,7 @@ import { setTasks } from '../store/taskSlice'
 const Delete = ({tid,onCancel,sId}) => {
   
   const dispatch=useDispatch()
- const Uri='http://localhost:4000'
+ const Uri=process.env.REACT_APP_API_URL;
 
 const deleteTaskHandler=()=>{
   axios.delete(Uri+"/deleteTask",{

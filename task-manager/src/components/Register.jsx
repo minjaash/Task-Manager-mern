@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const Register = ({setIsLoggedIn}) => {
-    const Uri="http://localhost:4000"
+    const Uri=process.env.REACT_APP_API_URL;
     const[values,setValues]=useState({name:"",email:"",password:""})
     const navigate=useNavigate();
 

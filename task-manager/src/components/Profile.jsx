@@ -7,7 +7,7 @@ import { setTasks } from '../store/taskSlice'
 
 
 const Profile = ({setIsLoggedIn}) => {
- const Uri='http://localhost:4000'
+ const Uri=process.env.REACT_APP_API_URL;
   const navigate=useNavigate();
   const dispatch=useDispatch();
  const [userData,setUserData]=useState("")

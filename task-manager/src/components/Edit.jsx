@@ -5,7 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 const Edit = () => {
    const [editTask,setEditTask]=useState({})
     const {tid}=useParams();
-    const Uri='http://localhost:4000';
+    const Uri=process.env.REACT_APP_API_URL;
     const navigate=useNavigate();
   
     useEffect(()=>{
