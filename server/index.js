@@ -25,6 +25,9 @@ mongoose.connect(Mongo_Uri)
     console.log("err in conn",err)
 })
 
+app.get('/',(req,res)=>{
+    res.send('welcome')
+})
 //------------Register api
 app.post('/register',(req,res)=>{
     const user=new User(req.body)
@@ -51,7 +54,7 @@ app.post('/login', (req, res) => {
             const token = jwt.sign({ name_: dbres.name }, JWT_Secret_Key);
             res.json({ token });
           } else {
-            // ❌ Invalid credentials — send proper error
+            //  Invalid credentials — send proper error
             res.status(401).json({ message: "Invalid email or password" });
           }
         })
