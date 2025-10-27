@@ -12,7 +12,7 @@ const UserTasks = () => {
   const { sId } = useParams();
   const navigate=useNavigate()
   const [deleteTaskId,setDeleteTaskId]=useState(null)
-  const {showTasks,hideTasks}=useOutletContext()
+  const {hideTasks}=useOutletContext()
   
 
   useEffect(() => {
