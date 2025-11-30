@@ -10,7 +10,10 @@ const jwt=require('jsonwebtoken')
 const UserTask = require("./models/tasksModel")
 
 //----------middlewares
-app.use(cors())
+app.use(cors({
+  origin: 'https://taskmanager-5mb.pages.dev', // include https:// exactly
+  credentials: true
+}));
 app.use(express.json())
 
 const Mongo_Uri=process.env.MONGODB_URI
