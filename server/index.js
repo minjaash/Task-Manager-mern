@@ -11,8 +11,9 @@ const UserTask = require("./models/tasksModel")
 
 //----------middlewares
 app.use(cors({
-  origin: 'https://taskmanager-5mb.pages.dev', // include https:// exactly
-  credentials: true
+  origin: ['https://taskmanager-5mb.pages.dev'],
+  methods: ['GET','POST','PUT','DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 app.use(express.json())
 
@@ -78,7 +79,7 @@ app.post('/login', (req, res) => {
 app.post('/user',(req,res)=>{
    const authHeader=req.header('Authorization')
    if(!authHeader&&!authHeader.startsWith("Bearer ")){
-    res.json({message:"unauthorized access"})
+   return res.status(401).json({ message: "Unauthorized access" });
    }
    const token=authHeader.replace("Bearer ","")
    const decoded=jwt.verify(token, JWT_Secret_Key)
